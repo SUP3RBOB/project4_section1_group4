@@ -61,8 +61,6 @@ Required headers:
             + ~Server()
             - server : QTcpServer**
             - clients: QList<<huh>QTcpSocket*>
-            + AddClient(socket : QTcpSocket*) void
-            + RemoveClient(socket: QTcpSocket*) void
             + Start(port : qint16) bool
             + Stop() void
 
