@@ -1,14 +1,4 @@
-<style>
-@font-face {
-  font-family: 'Uber';
-  src: url('Fonts/UberMoveBold.otf') format('woff')
-}
-.custom-font {
-  font-family: 'Uber', sans-serif;
-}
-</style>
-
-<h1 class="custom-font">GUBER</h1>
+# GUBER
 
 ## Classes
 ### Bookings
