@@ -7,7 +7,7 @@ Required headers:
 - #include <<huh>QDateTime>
 - #include <<huh>QDataStream>
 
-```Mermaid
+```mermaid
     classDiagram
         class Booking {
             + Booking()
