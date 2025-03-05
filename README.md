@@ -36,8 +36,14 @@ Required headers:
             + GetModel() QString
         }
 
+        class IDatabaseEntry {
+            + GetInsertQuery() QString
+        }
+
         PlaneBooking--|>Booking
         CarBooking--|>Booking
+        IDatabaseEntry <|.. PlaneBooking
+        IDatabaseEntry <|.. CarBooking
 ```
 \
 The above three classes will contain in and out operator for the QDataStream type.
