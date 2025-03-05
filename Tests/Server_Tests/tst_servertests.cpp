@@ -1,3 +1,4 @@
+#include <QCoreApplication>
 #include <QtTest>
 #include "server.h"
 
@@ -10,9 +11,6 @@ class ServerTests : public QObject
 private:
     ServerState serverState = ServerState::CarMode;
     void ServerStateChanged(ServerState state);
-
-    QString clientMessage;
-    void BytesReceived(QTcpSocket* socket);
 
 public:
     ServerTests();
@@ -27,10 +25,6 @@ private slots:
 
 void ServerTests::ServerStateChanged(ServerState state) {
     serverState = state;
-}
-
-void ServerTests::BytesReceived(QTcpSocket *socket) {
-    clientMessage = socket->readAll();
 }
 
 ServerTests::ServerTests() {}
@@ -84,24 +78,30 @@ void ServerTests::SetState_ChangesServerState() {
 
 void ServerTests::OnReceivedBytes_GetsInvokedWhenClientSendsMessageToServer() {
     // Arrange
+    int argc = 0;
+    QCoreApplication a = QCoreApplication(argc, NULL);
+
     Server server = Server();
-    connect(&server, &Server::OnReceivedBytes, this, &ServerTests::BytesReceived);
-    server.Start(QHostAddress::Any, 7770);
+    QString actualMessage;
     QString expectedMessage = "Hello Guber!";
+    connect(&server, &Server::OnReceivedBytes, this, [&](QTcpSocket* socket) {
+        // Assert
+        actualMessage = socket->readAll();
+        QCOMPARE(actualMessage, expectedMessage);
+        server.Stop();
+        a.quit();
+    });
+
+    server.Start(QHostAddress::Any, 7770);
 
     // Act
     QTcpSocket clientSocket = QTcpSocket();
     clientSocket.connectToHost(QHostAddress::LocalHost, 7770);
-
     connect(&clientSocket, &QTcpSocket::connected, this, [&]() {
         clientSocket.write("Hello Guber!");
-
-        // Assert
-        QCOMPARE(clientMessage, expectedMessage);
     });
 
-    // Cleanup
-    server.Stop();
+    a.exec();
 }
 
 QTEST_APPLESS_MAIN(ServerTests)
