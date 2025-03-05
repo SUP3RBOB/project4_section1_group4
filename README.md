@@ -76,3 +76,17 @@ Required headers:
             + Send(data : char*) qint64
         }
 ```
+
+### Database
+Required headers:
+- #include <<huh>QSql>
+
+```mermaid
+    classDiagram
+        class Database {
+            + Database(filePath: const QString&)
+            + ~Database()
+            - database : QSqlDatabase
+            + Query(query : const QString&) bool
+        }
+```
