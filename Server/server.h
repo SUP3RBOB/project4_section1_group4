@@ -6,14 +6,11 @@
 
 class Server : public QObject
 {
+    Q_OBJECT
+
 private:
     QTcpServer* server;
-    QSet<QTcpSocket*> clients;
-
     ServerState state;
-
-private slots:
-    void OnClientJoin();
 
 public:
     Server();
@@ -28,6 +25,10 @@ public:
 signals:
     void OnReceivedBytes(QTcpSocket* socket);
     void OnStateChanged(ServerState state);
+
+private slots:
+    void OnClientJoin();
+
 };
 
 #endif // SERVER_H
