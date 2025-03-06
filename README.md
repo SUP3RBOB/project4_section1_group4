@@ -70,8 +70,8 @@ Required headers:
             - clients: QList<<huh>QTcpSocket*>
             + Start(port : qint16) bool
             + Stop() void
-
             + OnReceivedBytes(socket : QTcpSocket*) signal
+            + OnStateChanged(state : ServerState) signal
         }
 
         class Client {
@@ -83,10 +83,19 @@ Required headers:
             + Send(data : char*) qint64
         }
 
-        class PacketHeader - Enum {
+        
+```
+```mermaid
+    classDiagram
+        class Enum-PacketHeader {
             StateChange = 0,
             CarBooking = 1,
             PlaneBooking = 2
+        }
+
+        class Enum-ServerState {
+            CarMode = 0,
+            PlaneMode = 1
         }
 ```
 
@@ -101,7 +110,7 @@ Required headers:
             + Database(filePath: const QString&)
             + ~Database()
             - database : QSqlDatabase
-            + Query(query : const QString&) bool
-            + Query(query : const QSqlQuery&) bool
+            + Query(query : const QString&) void
+            + Query(query : const QSqlQuery&) void
         }
 ```
