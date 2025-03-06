@@ -82,6 +82,12 @@ Required headers:
             + Stop() void
             + Send(data : char*) qint64
         }
+
+        class PacketHeader - Enum {
+            StateChange = 0,
+            CarBooking = 1,
+            PlaneBooking = 2
+        }
 ```
 
 ### Database
