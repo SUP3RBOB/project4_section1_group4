@@ -87,6 +87,7 @@ Required headers:
 ### Database
 Required headers:
 - #include <<huh>QSql>
+- #include <<huh>QSqlQuery>
 
 ```mermaid
     classDiagram
@@ -95,5 +96,6 @@ Required headers:
             + ~Database()
             - database : QSqlDatabase
             + Query(query : const QString&) bool
+            + Query(query : const QSqlQuery&) bool
         }
 ```
