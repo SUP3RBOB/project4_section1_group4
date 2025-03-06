@@ -79,7 +79,7 @@ void ServerTests::SetState_ChangesServerState() {
 void ServerTests::OnReceivedBytes_GetsInvokedWhenClientSendsMessageToServer() {
     // Arrange
     int argc = 0;
-    QCoreApplication a = QCoreApplication(argc, NULL);
+    QCoreApplication a = QCoreApplication(argc, nullptr);
 
     Server server = Server();
     QString actualMessage;
