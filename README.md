@@ -107,7 +107,7 @@ Required headers:
 ```mermaid
     classDiagram
         class Database {
-            + Database(filePath: const QString&)
+            + Database()
             + ~Database()
             - database : QSqlDatabase
             + Query(query : const QString&) void
