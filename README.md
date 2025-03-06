@@ -7,6 +7,7 @@ Required headers:
 - #include <<huh>QVector2D>
 - #include <<huh>QDateTime>
 - #include <<huh>QDataStream>
+- #include <<huh>QSqlQuery>
 
 ```mermaid
     classDiagram
@@ -37,7 +38,7 @@ Required headers:
         }
 
         class IDatabaseEntry {
-            + GetInsertQuery() QString
+            + GetInsertQuery() QSqlQuery
         }
 
         PlaneBooking--|>Booking
