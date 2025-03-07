@@ -8,19 +8,16 @@ Required headers:
 - #include <<huh>QDateTime>
 - #include <<huh>QDataStream>
 - #include <<huh>QSqlQuery>
+- #include <<huh>QDataStream>
 
 ```mermaid
     classDiagram
         class Booking {
             + Booking()
-            - firstName : QString
-            - lastName : QString
             - currentDate : QString
             - destinationAddress : QString
             - coordinates : QVector2D
-            + GetFirstName() QString
-            + GetLastName() QString
-            + GetCurrentDate QDateTime
+            + GetCurrentDate() QDateTime
             + GetDestinationAddress() QString
             + GetCoordiantes() QVector2D
         }
@@ -46,6 +43,20 @@ Required headers:
         IDatabaseEntry <|.. PlaneBooking
         IDatabaseEntry <|.. CarBooking
 ```
+
+```mermaid
+    classDiagram
+        class UserAccount {
+            - firstName : QString
+            - lastName : QString
+            + UserAccount()
+            - email : QString
+            + GetFirstName() QString
+            + GetLastName() QString
+            + GetEmail() QString
+        }
+```
+
 \
 The above three classes will contain in and out operator for the QDataStream type.
 
@@ -90,7 +101,8 @@ Required headers:
         class Enum-PacketHeader {
             StateChange = 0,
             CarBooking = 1,
-            PlaneBooking = 2
+            PlaneBooking = 2,
+            AccountCreation = 3
         }
 
         class Enum-ServerState {
@@ -112,5 +124,7 @@ Required headers:
             - database : QSqlDatabase
             + Query(query : const QString&) void
             + Query(query : const QSqlQuery&) void
+            + EmailExists() bool
+            + AccountExists()bool
         }
 ```
