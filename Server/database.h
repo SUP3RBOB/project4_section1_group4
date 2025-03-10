@@ -8,13 +8,14 @@ class Database
 {
 private:
     QSqlDatabase database;
-    static QSqlQuery querySingle;
+    QSqlQuery querySingle;
 
 public:
     Database();
+    ~Database();
 
-    void Query(const QString& query);
-    void Query(QSqlQuery& query);
+    bool Query(const QString& query);
+    bool Query(QSqlQuery& query);
 
     bool AccountExists(const QString& email);
 };

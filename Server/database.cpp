@@ -4,25 +4,39 @@ Database::Database() {
     database = QSqlDatabase::addDatabase("QMYSQL");
     database.setHostName("localhost");
     database.setPort(3306);
+    database.setDatabaseName("guberbase");
     database.setUserName("root");
+
     bool success = database.open();
-    if (!success) {
+    if (success) {
+        querySingle = QSqlQuery(database);
+        qDebug() << "Successfully connected to database";
+    } else {
         qDebug() << "Failed to connect to database";
     }
 }
 
-void Database::Query(const QString& query)
+Database::~Database()
 {
-    querySingle.exec(query);
+    database.close();
 }
 
-void Database::Query(QSqlQuery& query)
+bool Database::Query(const QString& query)
 {
-    query.exec();
+    return querySingle.exec(query);
 }
 
-bool Database::AccountExists(const QString &email)
+bool Database::Query(QSqlQuery& query)
 {
-    querySingle.prepare("select count(email) from UserAccount where email like ':email';");
-    querySingle.bindValue(":email", email);
+    return query.exec();
+}
+
+bool Database::AccountExists(const QString& email)
+{
+    querySingle.prepare("select count(*) from UserAccount where email like ?;");
+    querySingle.addBindValue(email);
+    querySingle.exec();
+    querySingle.next();
+
+    return querySingle.value(0).toInt() > 0;
 }

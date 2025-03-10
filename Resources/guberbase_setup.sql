@@ -23,8 +23,6 @@ create table PlaneBooking(
     user_email varchar(40),
     model varchar(20),
     foreign key (user_email) references UserAccount(email)
-)
+);
 
-select count(email)
-from UserAccount
-where email like 'Email';
+insert into UserAccount values('GuberAdmin', '1', 'admin@guber.ca');
