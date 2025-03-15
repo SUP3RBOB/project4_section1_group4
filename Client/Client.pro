@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
 CONFIG += c++17
 
@@ -10,11 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     ../Shared/booking.cpp \
+    client.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     ../Shared/booking.h \
+    client.h \
     mainwindow.h
 
 FORMS += \
