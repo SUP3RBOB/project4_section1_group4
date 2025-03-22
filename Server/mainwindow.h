@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <server.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,5 +20,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    Server* server;
+
+private slots:
+    void ServerStateChanged(ServerState state);
 };
 #endif // MAINWINDOW_H
