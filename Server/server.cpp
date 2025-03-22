@@ -28,7 +28,13 @@ void Server::SetState(ServerState state) {
 void Server::OnClientJoin() {
     QTcpSocket* clientSocket = server->nextPendingConnection();
 
+    emit OnClientConnected();
+
     connect(clientSocket, &QTcpSocket::readyRead, this, [this, clientSocket]() {
         emit OnReceivedBytes(clientSocket);
+    });
+
+    connect(clientSocket, &QTcpSocket::disconnected, this, [this]() {
+        emit OnClientDisconnected();
     });
 }
