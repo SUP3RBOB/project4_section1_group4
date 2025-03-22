@@ -17,3 +17,17 @@ QString UserAccount::GetLastName() {
 QString UserAccount::GetEmail() {
     return email;
 }
+
+QDataStream& operator <<(QDataStream& stream, const UserAccount& booking) {
+    stream << booking.firstName;
+    stream << booking.lastName;
+    stream << booking.email;
+    return stream;
+}
+
+QDataStream& operator >>(QDataStream& stream, UserAccount& booking) {
+    stream >> booking.firstName;
+    stream >> booking.lastName;
+    stream >> booking.email;
+    return stream;
+}

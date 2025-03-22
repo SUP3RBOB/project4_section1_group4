@@ -11,14 +11,10 @@ CONFIG += c++17
 SOURCES += \
     client.cpp \
     main.cpp \
-    mainwindow.cpp \
-    useraccount.cpp
-
+    mainwindow.cpp
 HEADERS += \
     client.h \
-    mainwindow.h \
-    useraccount.h
-
+    mainwindow.h
 FORMS += \
     mainwindow.ui
 
