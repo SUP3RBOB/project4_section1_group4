@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     server->Start(QHostAddress::Any, 7770);
 
+    database = new Database();
+
     ui->CarBookingTable->setVisible(false);
     ui->PlaneBookingTable->setVisible(false);
 }
@@ -19,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     server->Stop();
+    delete database;
     delete server;
     delete ui;
 }
@@ -38,4 +41,16 @@ void MainWindow::ServerStateChanged(ServerState state)
         }
         break;
     }
+}
+
+void MainWindow::ClientJoined()
+{
+    clientCount++;
+    ui->ClientCountLabel->setText(QString::number(clientCount));
+}
+
+void MainWindow::ClientLeft()
+{
+    clientCount--;
+    ui->ClientCountLabel->setText(QString::number(clientCount));
 }

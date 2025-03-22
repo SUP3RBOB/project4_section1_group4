@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <server.h>
+#include "server.h"
+#include "database.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,8 +23,13 @@ private:
     Ui::MainWindow *ui;
 
     Server* server;
+    Database* database;
+
+    int clientCount = 0;
 
 private slots:
     void ServerStateChanged(ServerState state);
+    void ClientJoined();
+    void ClientLeft();
 };
 #endif // MAINWINDOW_H
