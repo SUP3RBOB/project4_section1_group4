@@ -34,9 +34,14 @@ signals:
     /// Invoked when the state of the server changes.
     void OnStateChanged(ServerState state);
 
+    /// Invoked when a client connects.
+    void OnClientConnected();
+
+    /// Invoked when a client disconnects.
+    void OnClientDisconnected();
+
 private slots:
     void OnClientJoin();
-
 };
 
 #endif // SERVER_H
