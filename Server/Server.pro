@@ -17,6 +17,7 @@ SOURCES += \
 HEADERS += \
     database.h \
     mainwindow.h \
+    packettype.h \
     server.h \
     serverstate.h
 
