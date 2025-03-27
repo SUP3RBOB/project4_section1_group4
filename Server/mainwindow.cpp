@@ -41,7 +41,7 @@ void MainWindow::BytesReceived(QTcpSocket* socket)
     PacketType type;
     stream >> type;
 
-    HandlePacket(stream, type);
+    HandlePacket(socket, stream, type);
 }
 
 void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketType type)
