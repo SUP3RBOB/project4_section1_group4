@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "server.h"
 #include "database.h"
+#include "packettype.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -27,7 +28,10 @@ private:
 
     int clientCount = 0;
 
+    void HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketType type);
+
 private slots:
+    void BytesReceived(QTcpSocket* socket);
     void ServerStateChanged(ServerState state);
     void ClientJoined();
     void ClientLeft();
