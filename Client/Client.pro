@@ -13,12 +13,10 @@ SOURCES += \
     client.cpp \
     main.cpp \
     mainwindow.cpp
-
 HEADERS += \
     ../Shared/booking.h \
     client.h \
     mainwindow.h
-
 FORMS += \
     mainwindow.ui
 
