@@ -13,13 +13,11 @@ SOURCES += \
     client.cpp \
     main.cpp \
     useraccount.cpp \
-    mainwindow.cpp
 
 HEADERS += \
     Login.h \
     client.h \
     useraccount.h \
-    mainwindow.h
 
 FORMS += \
     Login.ui
