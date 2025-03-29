@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network positioning
 
 CONFIG += c++17
 
@@ -12,12 +12,14 @@ SOURCES += \
     Login.cpp \
     client.cpp \
     main.cpp \
-    useraccount.cpp
+    useraccount.cpp \
+    mainwindow.cpp
 
 HEADERS += \
     Login.h \
     client.h \
-    useraccount.h
+    useraccount.h \
+    mainwindow.h
 
 FORMS += \
     Login.ui
