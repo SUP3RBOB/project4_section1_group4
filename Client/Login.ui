@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>852</width>
+    <width>414</width>
     <height>736</height>
    </rect>
   </property>
@@ -17,10 +17,10 @@
    <widget class="QStackedWidget" name="GuberWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>0</y>
-      <width>841</width>
-      <height>721</height>
+      <width>414</width>
+      <height>736</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -30,8 +30,8 @@
      <widget class="QPushButton" name="LoginButton">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>580</y>
+        <x>120</x>
+        <y>550</y>
         <width>221</width>
         <height>61</height>
        </rect>
@@ -43,8 +43,8 @@
      <widget class="QLineEdit" name="userPassword">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>420</y>
+        <x>30</x>
+        <y>390</y>
         <width>361</width>
         <height>28</height>
        </rect>
@@ -53,8 +53,8 @@
      <widget class="QLineEdit" name="userName">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>260</y>
+        <x>30</x>
+        <y>250</y>
         <width>361</width>
         <height>28</height>
        </rect>
@@ -63,7 +63,7 @@
      <widget class="QLabel" name="enterName">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>10</x>
         <y>200</y>
         <width>111</width>
         <height>51</height>
@@ -76,8 +76,8 @@
      <widget class="QLabel" name="enterPassword">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>360</y>
+        <x>20</x>
+        <y>340</y>
         <width>111</width>
         <height>51</height>
        </rect>
@@ -86,14 +86,30 @@
        <string>Enter Password:</string>
       </property>
      </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>391</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 48pt &quot;Segoe UI&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Login Page</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="bookingChoice">
      <widget class="QPushButton" name="carBookingButton">
       <property name="geometry">
        <rect>
-        <x>170</x>
-        <y>260</y>
-        <width>141</width>
+        <x>60</x>
+        <y>280</y>
+        <width>291</width>
         <height>131</height>
        </rect>
       </property>
@@ -104,9 +120,9 @@
      <widget class="QPushButton" name="planeBookingButton">
       <property name="geometry">
        <rect>
-        <x>510</x>
-        <y>260</y>
-        <width>141</width>
+        <x>60</x>
+        <y>480</y>
+        <width>291</width>
         <height>131</height>
        </rect>
       </property>
@@ -114,16 +130,35 @@
        <string>Plane booking</string>
       </property>
      </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>50</y>
+        <width>371</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 28pt &quot;Segoe UI&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Booking Options:</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="carBookingPage">
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>330</x>
-        <y>10</y>
-        <width>141</width>
-        <height>81</height>
+        <x>90</x>
+        <y>-30</y>
+        <width>311</width>
+        <height>111</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 18pt &quot;Segoe UI&quot;;</string>
       </property>
       <property name="text">
        <string>CAR BOOKING PAGE</string>
@@ -132,14 +167,27 @@
      <widget class="QPushButton" name="confirmBookingCar">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>490</y>
-        <width>251</width>
-        <height>131</height>
+        <x>80</x>
+        <y>530</y>
+        <width>250</width>
+        <height>100</height>
        </rect>
       </property>
       <property name="text">
        <string>Confirm booking</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="carBackToBooking">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>640</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
       </property>
      </widget>
     </widget>
@@ -147,11 +195,14 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>330</x>
-        <y>10</y>
-        <width>161</width>
-        <height>31</height>
+        <x>70</x>
+        <y>-30</y>
+        <width>321</width>
+        <height>91</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 18pt &quot;Segoe UI&quot;;</string>
       </property>
       <property name="text">
        <string>PLANE BOOKING PAGE</string>
@@ -160,14 +211,27 @@
      <widget class="QPushButton" name="confirmBookingPlane">
       <property name="geometry">
        <rect>
-        <x>290</x>
-        <y>510</y>
-        <width>241</width>
-        <height>121</height>
+        <x>90</x>
+        <y>530</y>
+        <width>250</width>
+        <height>100</height>
        </rect>
       </property>
       <property name="text">
        <string>Confirm Booking</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="planeBackToBooking">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>640</y>
+        <width>101</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
       </property>
      </widget>
     </widget>
@@ -175,8 +239,8 @@
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>270</x>
-        <y>0</y>
+        <x>100</x>
+        <y>10</y>
         <width>301</width>
         <height>51</height>
        </rect>
@@ -193,7 +257,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>852</width>
+     <width>414</width>
      <height>25</height>
     </rect>
    </property>

@@ -29,6 +29,10 @@ private slots:
 
     void on_confirmBookingCar_clicked();
 
+    void on_carBackToBooking_clicked();
+
+    void on_planeBackToBooking_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

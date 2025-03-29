@@ -64,3 +64,15 @@ void MainWindow::on_confirmBookingCar_clicked()
     ui->GuberWidget->setCurrentIndex(CONFIRMATION_PAGE);
 }
 
+
+void MainWindow::on_carBackToBooking_clicked()
+{
+    ui->GuberWidget->setCurrentIndex(BOOKING_PAGE);
+}
+
+
+void MainWindow::on_planeBackToBooking_clicked()
+{
+    ui->GuberWidget->setCurrentIndex(BOOKING_PAGE);
+}
+
