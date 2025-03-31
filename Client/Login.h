@@ -33,6 +33,9 @@ private slots:
 
     void on_planeBackToBooking_clicked();
 
+    void CarLocationSet(QString location, double latitude, double longitude);
+    void PlaneLocationSet(QString location, double latitude, double longitude);
+
 private:
     Ui::MainWindow *ui;
 };

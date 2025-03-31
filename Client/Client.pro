@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network positioning
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network positioning quickwidgets location
 
 CONFIG += c++17
 
@@ -12,12 +12,10 @@ SOURCES += \
     Login.cpp \
     client.cpp \
     main.cpp \
-    useraccount.cpp \
 
 HEADERS += \
     Login.h \
     client.h \
-    useraccount.h \
 
 FORMS += \
     Login.ui
@@ -29,3 +27,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += $$files(../Shared/*.h)
 SOURCES += $$files(../Shared/*.cpp)
+INCLUDEPATH += ../Shared
+
+RESOURCES += \
+    qml.qrc
