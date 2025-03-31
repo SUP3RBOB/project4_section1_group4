@@ -9,20 +9,18 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ../Shared/booking.cpp \
-    ../Shared/carbooking.cpp \
-    ../Shared/planebooking.cpp \
+    Login.cpp \
     client.cpp \
     main.cpp \
-    mainwindow.cpp
+    useraccount.cpp \
+
 HEADERS += \
-    ../Shared/booking.h \
-    ../Shared/carbooking.h \
-    ../Shared/planebooking.h \
+    Login.h \
     client.h \
-    mainwindow.h
+    useraccount.h \
+
 FORMS += \
-    mainwindow.ui
+    Login.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
