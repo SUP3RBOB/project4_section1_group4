@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="loginPage">
      <widget class="QPushButton" name="LoginButton">
@@ -190,6 +190,19 @@
        <string>Back</string>
       </property>
      </widget>
+     <widget class="QQuickWidget" name="CarMapView">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>80</y>
+        <width>300</width>
+        <height>281</height>
+       </rect>
+      </property>
+      <property name="resizeMode">
+       <enum>QQuickWidget::ResizeMode::SizeRootObjectToView</enum>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="planeBookingPage">
      <widget class="QLabel" name="label_2">
@@ -234,6 +247,19 @@
        <string>Back</string>
       </property>
      </widget>
+     <widget class="QQuickWidget" name="PlaneMapView">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>80</y>
+        <width>300</width>
+        <height>281</height>
+       </rect>
+      </property>
+      <property name="resizeMode">
+       <enum>QQuickWidget::ResizeMode::SizeRootObjectToView</enum>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="confirmationPage">
      <widget class="QLabel" name="label_3">
@@ -258,12 +284,19 @@
      <x>0</x>
      <y>0</y>
      <width>414</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QQuickWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">QtQuickWidgets/QQuickWidget</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -14,6 +14,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->LoginButton, SIGNAL(clicked()), this, SLOT(on_LoginButton_clicked()));
+
+    ui->CarMapView->setSource(QUrl(QStringLiteral("qrc:/map.qml")));
+    QObject* carMapObj = (QObject*)ui->CarMapView->rootObject();
+    connect(carMapObj, SIGNAL(markerPositionChanged(QString, double, double)), this, SLOT(LocationSet(QString, double, double)));
+    ui->CarMapView->show();
+
+    ui->PlaneMapView->setSource(QUrl(QStringLiteral("qrc:/map.qml")));
+    QObject* planeMapObj = (QObject*)ui->PlaneMapView->rootObject();
+    connect(planeMapObj, SIGNAL(markerPositionChanged(QString, double, double)), this, SLOT(LocationSet(QString, double, double)));
+    ui->PlaneMapView->show();
 }
 
 MainWindow::~MainWindow()
@@ -76,3 +86,14 @@ void MainWindow::on_planeBackToBooking_clicked()
     ui->GuberWidget->setCurrentIndex(BOOKING_PAGE);
 }
 
+void MainWindow::CarLocationSet(QString location, double latitude, double longitude)
+{
+    qDebug() << location;
+    qDebug() << "(" << latitude << ", " << longitude << ")";
+}
+
+void MainWindow::PlaneLocationSet(QString location, double latitude, double longitude)
+{
+    qDebug() << location;
+    qDebug() << "(" << latitude << ", " << longitude << ")";
+}
