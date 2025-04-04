@@ -5,8 +5,9 @@
 #include <QList>
 #include <QByteArray>
 
-class Client
+class Client : public QObject
 {
+    Q_OBJECT
 public:
     Client();
 
@@ -20,6 +21,9 @@ public:
 
 private:
     QTcpSocket *clientSocket;
+
+signals:
+    void OnDataReceived(QByteArray bytes);
 };
 
 #endif // CLIENT_H
