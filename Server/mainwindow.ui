@@ -38,7 +38,7 @@
     </property>
     <column>
      <property name="text">
-      <string>Name</string>
+      <string>Email</string>
      </property>
     </column>
     <column>
@@ -73,7 +73,7 @@
     </property>
     <column>
      <property name="text">
-      <string>Name</string>
+      <string>Email</string>
      </property>
     </column>
     <column>

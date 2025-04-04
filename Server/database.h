@@ -22,8 +22,7 @@ public:
     /// Runs a query with the specified query object.
     bool Query(QSqlQuery& query);
 
-    /// Returns if an account exists in the database.
-    bool AccountExists(const QString& email);
+    bool AccountExists(const QString& email, const QString password);
 };
 
 #endif // DATABASE_H

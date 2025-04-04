@@ -20,6 +20,11 @@ void Server::Stop() {
     server->close();
 }
 
+void Server::Send(QTcpSocket *socket, char *bytes)
+{
+    socket->write(bytes);
+}
+
 void Server::SetState(ServerState state) {
     this->state = state;
     emit OnStateChanged(state);

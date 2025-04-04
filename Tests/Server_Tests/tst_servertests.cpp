@@ -23,6 +23,7 @@ private slots:
     void OnReceivedBytes_GetsInvokedWhenClientSendsMessageToServer();
     void OnClientConnected_GetsInvokedWhenClientJoins();
     void OnClientDisconnected_GetsInvokedWhenClientLeaves();
+    void Send_SendsBytesTocClient();
 };
 
 void ServerTests::ServerStateChanged(ServerState state) {
@@ -151,6 +152,36 @@ void ServerTests::OnClientDisconnected_GetsInvokedWhenClientLeaves()
     connect(&clientSocket, &QTcpSocket::connected, this, [&]() {
         clientSocket.disconnectFromHost();
     });
+
+    a.exec();
+}
+
+void ServerTests::Send_SendsBytesTocClient()
+{
+    // Arrange
+    int argc = 0;
+    QCoreApplication a = QCoreApplication(argc, nullptr);
+    QString expectedMessage = "Hello Client!";
+
+    Server server = Server();
+    server.Start(QHostAddress::Any, 7772);
+    connect(&server, &Server::OnReceivedBytes, this, [&](QTcpSocket* cs) {
+        server.Send(cs, QByteArray("Hello Client!").data());
+    });
+
+    // Act
+    QTcpSocket clientSocket = QTcpSocket();
+    connect(&clientSocket, &QTcpSocket::connected, this, [&]() {
+        clientSocket.write("I'm Here");
+    });
+
+    connect(&clientSocket, &QTcpSocket::readyRead, this, [&]() {
+        QByteArray bytes = clientSocket.readAll();
+        QCOMPARE(bytes, expectedMessage.toUtf8());
+        server.Stop();
+        a.quit();
+    });
+    clientSocket.connectToHost(QHostAddress::LocalHost, 7772);
 
     a.exec();
 }

@@ -1,9 +1,10 @@
 #include "useraccount.h"
 
-UserAccount::UserAccount(const QString &firstName, const QString &lastName, const QString &email) {
+UserAccount::UserAccount(const QString &firstName, const QString &lastName, const QString &email, const QString& password) {
     this->firstName = firstName;
     this->lastName = lastName;
     this->email = email;
+    this->password = password;
 }
 
 QString UserAccount::GetFirstName() {
@@ -16,6 +17,11 @@ QString UserAccount::GetLastName() {
 
 QString UserAccount::GetEmail() {
     return email;
+}
+
+QString UserAccount::GetPassword()
+{
+    return password;
 }
 
 QDataStream& operator <<(QDataStream& stream, const UserAccount& booking) {

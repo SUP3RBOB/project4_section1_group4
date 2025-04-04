@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QTcpSocket>
 #include <QDataStream>
-#include "useraccount.h"
+#include "databaseutility.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -56,15 +56,40 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
 
         case PacketType::CarBooking: {
             UserAccount account = UserAccount("", "", 0);
+            CarBooking booking = CarBooking(QDateTime(), "", QGeoCoordinate(), false);
             stream >> account;
+            stream >> booking;
+
+            QSqlQuery query = DatabaseUtility::InsertCarBooking(account, booking);
+            database->Query(query);
         }
         break;
 
         case PacketType::PlaneBooking: {
             UserAccount account = UserAccount("", "", 0);
+            PlaneBooking booking = PlaneBooking(QDateTime(), "", QGeoCoordinate(), "");
             stream >> account;
+            stream >> booking;
+
+            QSqlQuery query = DatabaseUtility::InsertPlaneBooking(account, booking);
+            database->Query(query);
         }
         break;
+
+        case PacketType::AccountCheck: {
+            QString email;
+            QString password;
+            stream >> email;
+            stream >> password;
+
+            bool exists = database->AccountExists(email, password);
+
+            QByteArray bytes = QByteArray();
+            QDataStream stream = QDataStream(bytes);
+            stream << PacketType::AccountConfirmed;
+            stream << exists;
+            server->Send(socket, bytes.data());
+        }
 
         default: // Do literally nothing
         break;
