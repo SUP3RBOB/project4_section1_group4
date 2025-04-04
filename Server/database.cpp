@@ -31,10 +31,11 @@ bool Database::Query(QSqlQuery& query)
     return query.exec();
 }
 
-bool Database::AccountExists(const QString& email)
+bool Database::AccountExists(const QString& email, const QString password)
 {
-    querySingle.prepare("select count(*) from UserAccount where email like ?;");
+    querySingle.prepare("select count(*) from UserAccount where email like ? and pass like ?;");
     querySingle.addBindValue(email);
+    querySingle.addBindValue(password);
     querySingle.exec();
     querySingle.next();
 

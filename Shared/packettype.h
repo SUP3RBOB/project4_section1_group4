@@ -5,7 +5,9 @@ enum class PacketType {
     StateChange,
     CarBooking,
     PlaneBooking,
-    ConfirmationTicket
+    ConfirmationTicket,
+    AccountCheck,
+    AccountConfirmed
 };
 
 #endif // PACKETTYPE_H

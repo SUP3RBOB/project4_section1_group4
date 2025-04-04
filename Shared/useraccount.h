@@ -11,10 +11,11 @@ private:
     QString firstName;
     QString lastName;
     QString email;
+    QString password;
 
 public:
     /// Constructs a new user account.
-    UserAccount(const QString& firstName, const QString& lastName, const QString& email);
+    UserAccount(const QString& firstName, const QString& lastName, const QString& email, const QString& password);
 
     /// Gets the user's first name.
     QString GetFirstName();
@@ -24,6 +25,8 @@ public:
 
     /// Gets the user's email.
     QString GetEmail();
+
+    QString GetPassword();
 
     friend QDataStream& operator <<(QDataStream& stream, const UserAccount& booking);
     friend QDataStream& operator >>(QDataStream& stream, UserAccount& booking);

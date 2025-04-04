@@ -24,6 +24,8 @@ public:
     /// Stops the server.
     void Stop();
 
+    void Send(QTcpSocket* socket, char* bytes);
+
     /// Sets the state of the server.
     void SetState(ServerState state);
 

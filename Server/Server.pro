@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network sql
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network sql positioning
 
 CONFIG += c++17
 
@@ -10,12 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     database.cpp \
+    databaseutility.cpp \
     main.cpp \
     mainwindow.cpp \
     server.cpp
 
 HEADERS += \
     database.h \
+    databaseutility.h \
     mainwindow.h \
     server.h \
     serverstate.h
@@ -30,3 +32,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += $$files(../Shared/*.h)
 SOURCES += $$files(../Shared/*.cpp)
+INCLUDEPATH += ../Shared

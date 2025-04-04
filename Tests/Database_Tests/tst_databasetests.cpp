@@ -79,7 +79,7 @@ void DatabaseTests::Destructor_ClosesDatabase()
 void DatabaseTests::AccountExists_ReturnsTrueWhenAccountInDatabase()
 {
     // Act
-    bool success = db->AccountExists("admin@guber.ca");
+    bool success = db->AccountExists("admin@guber.ca", "guberpass");
 
     // Assert
     QVERIFY(success);
@@ -88,7 +88,7 @@ void DatabaseTests::AccountExists_ReturnsTrueWhenAccountInDatabase()
 void DatabaseTests::AccountExists_ReturnsFalseWhenAccountNotInDatabase()
 {
     // Act
-    bool success = db->AccountExists("email@email.com");
+    bool success = db->AccountExists("email@email.com", "nopassword");
 
     // Assert
     QVERIFY(!success);
