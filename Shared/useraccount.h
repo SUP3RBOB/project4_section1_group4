@@ -8,20 +8,15 @@
 class UserAccount
 {
 private:
-    QString firstName;
-    QString lastName;
     QString email;
     QString password;
 
 public:
+    /// Constructs a blank user
+    UserAccount();
+
     /// Constructs a new user account.
-    UserAccount(const QString& firstName, const QString& lastName, const QString& email, const QString& password);
-
-    /// Gets the user's first name.
-    QString GetFirstName();
-
-    /// Gets the user's last name.
-    QString GetLastName();
+    UserAccount(const QString& email, const QString& password);
 
     /// Gets the user's email.
     QString GetEmail();

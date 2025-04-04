@@ -10,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    carTicket = QImage(":/images/images/plane_ticket.jpg");
+    planeTicket = QImage(":/images/images/plane_ticket.jpg");
+
     server = new Server();
     connect(server, &Server::OnStateChanged, this, &MainWindow::ServerStateChanged);
 
@@ -55,37 +58,47 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
         break;
 
         case PacketType::CarBooking: {
-            UserAccount account = UserAccount("", "", 0);
+            UserAccount account = UserAccount();
             CarBooking booking = CarBooking(QDateTime(), "", QGeoCoordinate(), false);
             stream >> account;
             stream >> booking;
 
             QSqlQuery query = DatabaseUtility::InsertCarBooking(account, booking);
             database->Query(query);
+
+            QByteArray bytes = QByteArray();
+            QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
+            stream << PacketType::ConfirmationTicket;
+            stream << carTicket;
+            server->Send(socket, bytes.data());
         }
         break;
 
         case PacketType::PlaneBooking: {
-            UserAccount account = UserAccount("", "", 0);
+            UserAccount account = UserAccount();
             PlaneBooking booking = PlaneBooking(QDateTime(), "", QGeoCoordinate(), "");
             stream >> account;
             stream >> booking;
 
             QSqlQuery query = DatabaseUtility::InsertPlaneBooking(account, booking);
             database->Query(query);
+
+            QByteArray bytes = QByteArray();
+            QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
+            stream << PacketType::ConfirmationTicket;
+            stream << planeTicket;
+            server->Send(socket, bytes.data());
         }
         break;
 
         case PacketType::AccountCheck: {
-            QString email;
-            QString password;
-            stream >> email;
-            stream >> password;
+            UserAccount account;
+            stream >> account;
 
-            bool exists = database->AccountExists(email, password);
+            bool exists = database->AccountExists(account.GetEmail(), account.GetPassword());
 
             QByteArray bytes = QByteArray();
-            QDataStream stream = QDataStream(bytes);
+            QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
             stream << PacketType::AccountConfirmed;
             stream << exists;
             server->Send(socket, bytes.data());
