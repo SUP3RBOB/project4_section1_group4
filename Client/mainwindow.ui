@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="loginPage">
      <widget class="QPushButton" name="LoginButton">
@@ -216,7 +216,7 @@
        <string>CyberTruck</string>
       </property>
      </widget>
-     <widget class="QLabel" name="LocationLabel">
+     <widget class="QLabel" name="LocationLabelCar">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -226,7 +226,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string/>
       </property>
      </widget>
     </widget>
@@ -296,7 +296,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string/>
       </property>
      </widget>
      <widget class="QComboBox" name="planeChoices">
@@ -348,7 +348,7 @@
      <x>0</x>
      <y>0</y>
      <width>414</width>
-     <height>17</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

@@ -4,6 +4,8 @@
 #include "useraccount.h"
 #include <packettype.h>
 #include "serverstate.h"
+#include "carbooking.h"
+#include "planebooking.h"
 
 #define BOOKING_PAGE 1
 #define CAR_BOOKING_PAGE 2
@@ -46,10 +48,12 @@ void MainWindow::on_LoginButton_clicked()
     QString userInputEmail = ui->userEmail->text();
     QString userInputPassword = ui->userPassword->text();
 
+    account = UserAccount(userInputEmail, userInputPassword);
+
     QByteArray bytes = QByteArray();
     QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
     stream << PacketType::AccountCheck;
-    stream <<  UserAccount(userInputEmail, userInputPassword);
+    stream <<  account;
     client->Send(bytes);
 }
 
@@ -81,12 +85,30 @@ void MainWindow::on_planeBookingButton_clicked()
 void MainWindow::on_confirmBookingPlane_clicked()
 {
     ui->GuberWidget->setCurrentIndex(CONFIRMATION_PAGE);
+
+    PlaneBooking planeBooking(QDateTime::currentDateTime(), address, coordinates, ui->planeChoices->currentText()) ;
+
+    QByteArray bytes = QByteArray();
+    QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
+    stream << PacketType::PlaneBooking;
+    stream << account;
+    stream << planeBooking;
+    client->Send(bytes);
 }
 
 
 void MainWindow::on_confirmBookingCar_clicked()
 {
     ui->GuberWidget->setCurrentIndex(CONFIRMATION_PAGE);
+
+    CarBooking carBooking(QDateTime::currentDateTime(), address, coordinates, ui->cyberTruckBox->checkState()== Qt::Checked);
+
+    QByteArray bytes = QByteArray();
+    QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
+    stream << PacketType::CarBooking;
+    stream << account;
+    stream << carBooking;
+    client->Send(bytes);
 }
 
 
@@ -105,12 +127,18 @@ void MainWindow::CarLocationSet(QString location, double latitude, double longit
 {
     qDebug() << location;
     qDebug() << "(" << latitude << ", " << longitude << ")";
+    ui->LocationLabelCar->setText(location);
+    address = location;
+    coordinates = QGeoCoordinate(latitude, longitude);
 }
 
 void MainWindow::PlaneLocationSet(QString location, double latitude, double longitude)
 {
     qDebug() << location;
     qDebug() << "(" << latitude << ", " << longitude << ")";
+    ui->locationLabelPlane->setText(location);
+    address = location;
+    coordinates = QGeoCoordinate(latitude, longitude);
 }
 
 void MainWindow::DataReceived(QByteArray bytes)

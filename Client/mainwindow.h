@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "client.h"
+#include "useraccount.h"
+#include <QGeoCoordinate>
 
 #include <QMainWindow>
 
@@ -44,5 +46,10 @@ private:
     Ui::MainWindow *ui;
 
     Client *client;
+
+    QString address;
+    QGeoCoordinate coordinates;
+
+    UserAccount account;
 };
 #endif // MAINWINDOW_H
