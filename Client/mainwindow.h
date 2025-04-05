@@ -1,5 +1,6 @@
-#ifndef LOGIN_H
-#define LOGIN_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+#include "client.h"
 
 #include <QMainWindow>
 
@@ -16,6 +17,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
 
 private slots:
 
@@ -36,7 +38,11 @@ private slots:
     void CarLocationSet(QString location, double latitude, double longitude);
     void PlaneLocationSet(QString location, double latitude, double longitude);
 
+    void DataReceived(QByteArray bytes);
+
 private:
     Ui::MainWindow *ui;
+
+    Client *client;
 };
-#endif // LOGIN_H
+#endif // MAINWINDOW_H

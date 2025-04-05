@@ -1,6 +1,8 @@
-#include "Login.h"
-#include "ui_Login.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include "QMessageBox"
+#include "useraccount.h"
+#include <packettype.h>
 
 #define BOOKING_PAGE 1
 #define CAR_BOOKING_PAGE 2
@@ -14,6 +16,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->LoginButton, SIGNAL(clicked()), this, SLOT(on_LoginButton_clicked()));
+
+    client = new Client();
+    client->Start(QHostAddress::LocalHost, 7770);
+
+    connect(client, SIGNAL(OnDataReceived(QByteArray)), this, SLOT(DataReceived(QByteArray)));
 
     ui->CarMapView->setSource(QUrl(QStringLiteral("qrc:/map.qml")));
     QObject* carMapObj = (QObject*)ui->CarMapView->rootObject();
@@ -29,25 +36,20 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete client;
 }
 
 
 void MainWindow::on_LoginButton_clicked()
 {
-    QString name = "GuberCEO";
-    QString password = "123";
-
-    QString userInputName = ui->userName->text();
+    QString userInputEmail = ui->userEmail->text();
     QString userInputPassword = ui->userPassword->text();
 
-
-    if (name == userInputName && password == userInputPassword) {
-        //::information(this, "Welcome User", "User: " +userInputName+ "\nWelcome to GUBER!");
-        ui->GuberWidget->setCurrentIndex(BOOKING_PAGE);
-    }
-    else {
-        QMessageBox::information(this, "Error Message", "invalid username or password please try again");
-    }
+    QByteArray bytes = QByteArray();
+    QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
+    stream << PacketType::AccountCheck;
+    stream <<  UserAccount(userInputEmail, userInputPassword);
+    client->Send(bytes.data());
 }
 
 
@@ -96,4 +98,26 @@ void MainWindow::PlaneLocationSet(QString location, double latitude, double long
 {
     qDebug() << location;
     qDebug() << "(" << latitude << ", " << longitude << ")";
+}
+
+void MainWindow::DataReceived(QByteArray bytes)
+{
+    QDataStream stream = QDataStream(bytes);
+
+    PacketType type;
+    stream >> type;
+
+
+    if(type == PacketType::AccountConfirmed){
+        bool accountConfrimed;
+
+        stream >> accountConfrimed;
+
+        if(accountConfrimed == true)
+            ui->GuberWidget->setCurrentIndex(BOOKING_PAGE);
+
+        else
+            QMessageBox::information(this, "Error Message", "invalid username or password please try again");
+    }
+
 }
