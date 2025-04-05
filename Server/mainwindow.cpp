@@ -65,7 +65,7 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             stream >> booking;
             qDebug() << booking.GetDate().toString(Qt::DateFormat::ISODate).replace('T', ' ');
             qDebug() << booking.GetDestination();
-            qDebug() << booking.GetCoordinates().toString();
+            qDebug() << booking.GetCoordinates();
             qDebug() << account.GetEmail();
             qDebug() << booking.HasCybertruck();
 
