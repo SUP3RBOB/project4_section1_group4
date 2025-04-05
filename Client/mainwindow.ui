@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>20</y>
       <width>414</width>
       <height>736</height>
      </rect>
@@ -50,7 +50,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="userName">
+     <widget class="QLineEdit" name="userEmail">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -70,7 +70,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Enter Username:</string>
+       <string>Enter Email:</string>
       </property>
      </widget>
      <widget class="QLabel" name="enterPassword">
@@ -203,6 +203,32 @@
        <enum>QQuickWidget::ResizeMode::SizeRootObjectToView</enum>
       </property>
      </widget>
+     <widget class="QCheckBox" name="cyberTruckBox">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>480</y>
+        <width>101</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CyberTruck</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="LocationLabel">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>370</y>
+        <width>371</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="planeBookingPage">
      <widget class="QLabel" name="label_2">
@@ -260,6 +286,44 @@
        <enum>QQuickWidget::ResizeMode::SizeRootObjectToView</enum>
       </property>
      </widget>
+     <widget class="QLabel" name="locationLabelPlane">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>380</y>
+        <width>361</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="planeChoices">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>450</y>
+        <width>251</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Cool plane</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Ugly plane</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Cyber plane (rocket deflection enabled)</string>
+       </property>
+      </item>
+     </widget>
     </widget>
     <widget class="QWidget" name="confirmationPage">
      <widget class="QLabel" name="label_3">
@@ -284,7 +348,7 @@
      <x>0</x>
      <y>0</y>
      <width>414</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
