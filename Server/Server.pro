@@ -33,3 +33,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += $$files(../Shared/*.h)
 SOURCES += $$files(../Shared/*.cpp)
 INCLUDEPATH += ../Shared
+
+RESOURCES += \
+    assets.qrc

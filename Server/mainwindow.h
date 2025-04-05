@@ -28,6 +28,9 @@ private:
 
     int clientCount = 0;
 
+    QImage carTicket;
+    QImage planeTicket;
+
     void HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketType type);
 
 private slots:
