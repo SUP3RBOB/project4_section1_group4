@@ -20,7 +20,7 @@ void Server::Stop() {
     server->close();
 }
 
-void Server::Send(QTcpSocket *socket, char *bytes)
+void Server::Send(QTcpSocket *socket, const QByteArray& bytes)
 {
     socket->write(bytes);
 }
@@ -32,10 +32,11 @@ void Server::SetState(ServerState state) {
 
 void Server::OnClientJoin() {
     QTcpSocket* clientSocket = server->nextPendingConnection();
-
+    qDebug() << "Client Connected";
     emit OnClientConnected();
 
     connect(clientSocket, &QTcpSocket::readyRead, this, [this, clientSocket]() {
+        qDebug() << "yes";
         emit OnReceivedBytes(clientSocket);
     });
 

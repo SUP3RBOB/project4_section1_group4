@@ -19,12 +19,12 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>101</width>
+      <width>111</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Clients Connected:</string>
+     <string>Clients Connected: 0</string>
     </property>
    </widget>
    <widget class="QTreeWidget" name="CarBookingTable">

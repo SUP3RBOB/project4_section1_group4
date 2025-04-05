@@ -3,6 +3,7 @@
 #include "QMessageBox"
 #include "useraccount.h"
 #include <packettype.h>
+#include "serverstate.h"
 
 #define BOOKING_PAGE 1
 #define CAR_BOOKING_PAGE 2
@@ -24,12 +25,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->CarMapView->setSource(QUrl(QStringLiteral("qrc:/map.qml")));
     QObject* carMapObj = (QObject*)ui->CarMapView->rootObject();
-    connect(carMapObj, SIGNAL(markerPositionChanged(QString, double, double)), this, SLOT(LocationSet(QString, double, double)));
+    connect(carMapObj, SIGNAL(markerPositionChanged(QString, double, double)), this, SLOT(CarLocationSet(QString, double, double)));
     ui->CarMapView->show();
 
     ui->PlaneMapView->setSource(QUrl(QStringLiteral("qrc:/map.qml")));
     QObject* planeMapObj = (QObject*)ui->PlaneMapView->rootObject();
-    connect(planeMapObj, SIGNAL(markerPositionChanged(QString, double, double)), this, SLOT(LocationSet(QString, double, double)));
+    connect(planeMapObj, SIGNAL(markerPositionChanged(QString, double, double)), this, SLOT(PlaneLocationSet(QString, double, double)));
     ui->PlaneMapView->show();
 }
 
@@ -49,19 +50,31 @@ void MainWindow::on_LoginButton_clicked()
     QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
     stream << PacketType::AccountCheck;
     stream <<  UserAccount(userInputEmail, userInputPassword);
-    client->Send(bytes.data());
+    client->Send(bytes);
 }
 
 
 void MainWindow::on_carBookingButton_clicked()
 {
     ui->GuberWidget->setCurrentIndex(CAR_BOOKING_PAGE);
+
+    QByteArray bytes = QByteArray();
+    QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
+    stream << PacketType::StateChange;
+    stream <<  ServerState::CarMode;
+    client->Send(bytes);
 }
 
 
 void MainWindow::on_planeBookingButton_clicked()
 {
      ui->GuberWidget->setCurrentIndex(PLANE_BOOKING_PAGE);
+
+    QByteArray bytes = QByteArray();
+    QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
+    stream << PacketType::StateChange;
+    stream <<  ServerState::PlaneMode;
+    client->Send(bytes);
 }
 
 
