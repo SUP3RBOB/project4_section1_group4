@@ -4,7 +4,7 @@ QSqlQuery DatabaseUtility::InsertCarBooking(UserAccount &account, CarBooking &bo
 {
     QSqlQuery query;
     query.prepare("insert into CarBooking values(?, ?, ?, ?, ?);");
-    query.addBindValue(booking.GetDate());
+    query.addBindValue(booking.GetDate().toString(Qt::DateFormat::ISODate).replace('T', ' '));
     query.addBindValue(booking.GetDestination());
     query.addBindValue(booking.GetCoordinates().toString());
     query.addBindValue(account.GetEmail());
@@ -16,7 +16,7 @@ QSqlQuery DatabaseUtility::InsertPlaneBooking(UserAccount &account, PlaneBooking
 {
     QSqlQuery query;
     query.prepare("insert into PlaneBooking values(?, ?, ?, ?, ?);");
-    query.addBindValue(booking.GetDate());
+    query.addBindValue(booking.GetDate().toString(Qt::DateFormat::ISODate).replace('T', ' '));
     query.addBindValue(booking.GetDestination());
     query.addBindValue(booking.GetCoordinates().toString());
     query.addBindValue(account.GetEmail());

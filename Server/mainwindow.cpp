@@ -35,11 +35,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::BytesReceived(QTcpSocket* socket)
 {
-    qDebug() << "Received";
     if (socket->bytesAvailable() <= 0) {
         return;
     }
-    qDebug() << "Received22";
+
     QByteArray bytes = socket->readAll();
     QDataStream stream = QDataStream(bytes);
 
@@ -64,9 +63,14 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             CarBooking booking = CarBooking(QDateTime(), "", QGeoCoordinate(), false);
             stream >> account;
             stream >> booking;
+            qDebug() << booking.GetDate().toString(Qt::DateFormat::ISODate).replace('T', ' ');
+            qDebug() << booking.GetDestination();
+            qDebug() << booking.GetCoordinates().toString();
+            qDebug() << account.GetEmail();
+            qDebug() << booking.HasCybertruck();
 
             QSqlQuery query = DatabaseUtility::InsertCarBooking(account, booking);
-            database->Query(query);
+            qDebug() << database->Query(query);
 
             QByteArray bytes = QByteArray();
             QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);

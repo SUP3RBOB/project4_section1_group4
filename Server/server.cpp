@@ -36,7 +36,6 @@ void Server::OnClientJoin() {
     emit OnClientConnected();
 
     connect(clientSocket, &QTcpSocket::readyRead, this, [this, clientSocket]() {
-        qDebug() << "yes";
         emit OnReceivedBytes(clientSocket);
     });
 

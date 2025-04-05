@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="loginPage">
      <widget class="QPushButton" name="LoginButton">
@@ -348,7 +348,7 @@
      <x>0</x>
      <y>0</y>
      <width>414</width>
-     <height>25</height>
+     <height>17</height>
     </rect>
    </property>
   </widget>
