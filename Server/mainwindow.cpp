@@ -63,14 +63,9 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             CarBooking booking = CarBooking(QDateTime(), "", QGeoCoordinate(), false);
             stream >> account;
             stream >> booking;
-            qDebug() << booking.GetDate().toString(Qt::DateFormat::ISODate).replace('T', ' ');
-            qDebug() << booking.GetDestination();
-            qDebug() << booking.GetCoordinates();
-            qDebug() << account.GetEmail();
-            qDebug() << booking.HasCybertruck();
 
             QSqlQuery query = DatabaseUtility::InsertCarBooking(account, booking);
-            qDebug() << database->Query(query);
+            database->Query(query);
 
             QByteArray bytes = QByteArray();
             QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
