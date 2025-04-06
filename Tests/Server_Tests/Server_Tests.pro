@@ -13,3 +13,5 @@ SOURCES +=  tst_servertests.cpp
 INCLUDEPATH += ../../Server
 HEADERS += ../../Server/server.h
 SOURCES += ../../Server/server.cpp
+INCLUDEPATH += ../../Shared
+HEADERS += ../../Shared/serverstate.h

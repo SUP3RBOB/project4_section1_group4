@@ -33,13 +33,15 @@ void Server::SetState(ServerState state) {
 void Server::OnClientJoin() {
     QTcpSocket* clientSocket = server->nextPendingConnection();
     qDebug() << "Client Connected";
-    emit OnClientConnected();
+    clientCount++;
+    emit OnClientCountUpdated(clientCount);
 
     connect(clientSocket, &QTcpSocket::readyRead, this, [this, clientSocket]() {
         emit OnReceivedBytes(clientSocket);
     });
 
-    connect(clientSocket, &QTcpSocket::disconnected, this, [this]() {
-        emit OnClientDisconnected();
+    connect(clientSocket, &QTcpSocket::disconnected, this, [&]() {
+        clientCount--;
+        emit OnClientCountUpdated(clientCount);
     });
 }

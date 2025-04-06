@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     server = new Server();
     connect(server, &Server::OnStateChanged, this, &MainWindow::ServerStateChanged);
     connect(server, &Server::OnReceivedBytes, this, &MainWindow::BytesReceived);
+    connect(server, &Server::OnClientCountUpdated, this, &MainWindow::ClientCountUpdated);
 
     server->Start(QHostAddress::Any, 7770);
 
@@ -72,6 +73,8 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             stream << PacketType::ConfirmationTicket;
             stream << carTicket;
             server->Send(socket, bytes);
+
+            UpdateCarTable();
         }
         break;
 
@@ -110,31 +113,66 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
     }
 }
 
+void MainWindow::UpdateCarTable()
+{
+    ui->CarBookingTable->clear();
+
+    QSqlQuery query;
+    query.prepare("select user_email, destination_address, coordinates, booking_date, is_cybertruck from CarBooking order by booking_date desc;");
+    database->Query(query);
+
+    while (query.next()) {
+        QTreeWidgetItem* item = new QTreeWidgetItem();
+        item->setText(0, query.value(0).toString());
+        item->setText(1, query.value(1).toString());
+        item->setText(2, query.value(2).toString());
+        item->setText(3, query.value(3).toString());
+        item->setText(4, query.value(4).toString() == "1" ? "Yes" : "No");
+        ui->CarBookingTable->addTopLevelItem(item);
+    }
+}
+
+void MainWindow::UpdatePlaneTable()
+{
+    ui->CarBookingTable->clear();
+
+    QSqlQuery query;
+    query.prepare("select user_email, destination_address, coordinates, booking_date, model from PlaneBooking order by booking_date desc;");
+    database->Query(query);
+
+    while (query.next()) {
+        QTreeWidgetItem* item = new QTreeWidgetItem();
+        item->setText(0, query.value(0).toString());
+        item->setText(1, query.value(1).toString());
+        item->setText(2, query.value(2).toString());
+        item->setText(3, query.value(3).toString());
+        item->setText(4, query.value(4).toString());
+        ui->CarBookingTable->addTopLevelItem(item);
+    }
+}
+
 void MainWindow::ServerStateChanged(ServerState state)
 {
     switch (state) {
         case ServerState::CarMode: {
             ui->CarBookingTable->setVisible(true);
             ui->PlaneBookingTable->setVisible(false);
+            UpdateCarTable();
         }
         break;
 
         case ServerState::PlaneMode: {
             ui->PlaneBookingTable->setVisible(true);
             ui->CarBookingTable->setVisible(false);
+            UpdatePlaneTable();
         }
         break;
     }
 }
 
-void MainWindow::ClientJoined()
+void MainWindow::ClientCountUpdated(int count)
 {
-    clientCount++;
-    ui->ClientCountLabel->setText("Clients Connected: " + QString::number(clientCount));
-}
-
-void MainWindow::ClientLeft()
-{
-    clientCount--;
-    ui->ClientCountLabel->setText("Clients Connected: " + QString::number(clientCount));
+    QString text;
+    QTextStream(&text) << "Clients Connected: " << count;
+    ui->ClientCountLabel->setText(text);
 }
