@@ -32,11 +32,11 @@ private:
     QImage planeTicket;
 
     void HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketType type);
+    void UpdateCarTable();
 
 private slots:
     void BytesReceived(QTcpSocket* socket);
     void ServerStateChanged(ServerState state);
-    void ClientJoined();
-    void ClientLeft();
+    void ClientCountUpdated(int count);
 };
 #endif // MAINWINDOW_H

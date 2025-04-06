@@ -13,6 +13,8 @@ private:
     QTcpServer* server;
     ServerState state;
 
+    int clientCount = 0;
+
 public:
     /// Creates a new server.
     Server();
@@ -36,11 +38,8 @@ signals:
     /// Invoked when the state of the server changes.
     void OnStateChanged(ServerState state);
 
-    /// Invoked when a client connects.
-    void OnClientConnected();
-
-    /// Invoked when a client disconnects.
-    void OnClientDisconnected();
+    /// Invoked when a client connects or disconnects.
+    void OnClientCountUpdated(int count);
 
 private slots:
     void OnClientJoin();

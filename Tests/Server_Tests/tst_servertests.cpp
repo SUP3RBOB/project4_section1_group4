@@ -21,9 +21,8 @@ private slots:
     void Stop_ClosesRunningServer();
     void SetState_ChangesServerState();
     void OnReceivedBytes_GetsInvokedWhenClientSendsMessageToServer();
-    void OnClientConnected_GetsInvokedWhenClientJoins();
-    void OnClientDisconnected_GetsInvokedWhenClientLeaves();
-    void Send_SendsBytesTocClient();
+    void OnClientCountUpdated_InvokedWhenClientConnects();
+    void Send_SendsBytesToClient();
 };
 
 void ServerTests::ServerStateChanged(ServerState state) {
@@ -107,16 +106,18 @@ void ServerTests::OnReceivedBytes_GetsInvokedWhenClientSendsMessageToServer() {
     a.exec();
 }
 
-void ServerTests::OnClientConnected_GetsInvokedWhenClientJoins()
+void ServerTests::OnClientCountUpdated_InvokedWhenClientConnects()
 {
     // Arrange
     int argc = 0;
     QCoreApplication a = QCoreApplication(argc, nullptr);
 
     Server server = Server();
-    connect(&server, &Server::OnClientConnected, this, [&]() {
+    connect(&server, &Server::OnClientCountUpdated, this, [&](int count) {
         // Assert
-        QVERIFY(true);
+        qDebug() << count;
+        QVERIFY(count > 0);
+        disconnect(&server, nullptr, nullptr, nullptr);
         server.Stop();
         a.quit();
     });
@@ -130,33 +131,7 @@ void ServerTests::OnClientConnected_GetsInvokedWhenClientJoins()
     a.exec();
 }
 
-void ServerTests::OnClientDisconnected_GetsInvokedWhenClientLeaves()
-{
-    // Arrange
-    int argc = 0;
-    QCoreApplication a = QCoreApplication(argc, nullptr);
-
-    Server server = Server();
-    connect(&server, &Server::OnClientDisconnected, this, [&]() {
-        // Assert
-        QVERIFY(true);
-        server.Stop();
-        a.quit();
-    });
-
-    server.Start(QHostAddress::Any, 7772);
-
-    // Act
-    QTcpSocket clientSocket = QTcpSocket();
-    clientSocket.connectToHost(QHostAddress::LocalHost, 7772);
-    connect(&clientSocket, &QTcpSocket::connected, this, [&]() {
-        clientSocket.disconnectFromHost();
-    });
-
-    a.exec();
-}
-
-void ServerTests::Send_SendsBytesTocClient()
+void ServerTests::Send_SendsBytesToClient()
 {
     // Arrange
     int argc = 0;
