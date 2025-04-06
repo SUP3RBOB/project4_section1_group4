@@ -6,6 +6,7 @@
 #include "serverstate.h"
 #include "carbooking.h"
 #include "planebooking.h"
+#include <QFile>
 
 #define BOOKING_PAGE 1
 #define CAR_BOOKING_PAGE 2
@@ -143,11 +144,23 @@ void MainWindow::PlaneLocationSet(QString location, double latitude, double long
 
 void MainWindow::DataReceived(QByteArray bytes)
 {
-    QDataStream stream = QDataStream(bytes);
+    if (waitForImage) {
+        imageBytes.append(bytes);
+        qDebug() << imageBytes.size() << "/" << totalImageBytes;
 
+        if (imageBytes.size() >= totalImageBytes) {
+            QPixmap ticket;
+            ticket.loadFromData(imageBytes);
+            ui->ConfirmationTicket->setPixmap(ticket);
+            waitForImage = false;
+        }
+
+        return;
+    }
+
+    QDataStream stream = QDataStream(bytes);
     PacketType type;
     stream >> type;
-
 
     if(type == PacketType::AccountConfirmed){
         bool accountConfrimed;
@@ -160,5 +173,9 @@ void MainWindow::DataReceived(QByteArray bytes)
         else
             QMessageBox::information(this, "Error Message", "invalid username or password please try again");
     }
-
+    else if (type == PacketType::ConfirmationTicket) {
+        waitForImage = true;
+        stream >> totalImageBytes;
+        imageBytes = QByteArray();
+    }
 }

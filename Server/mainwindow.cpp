@@ -3,15 +3,13 @@
 #include <QTcpSocket>
 #include <QDataStream>
 #include "databaseutility.h"
+#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    carTicket = QImage(":/images/images/plane_ticket.jpg");
-    planeTicket = QImage(":/images/images/plane_ticket.jpg");
 
     server = new Server();
     connect(server, &Server::OnStateChanged, this, &MainWindow::ServerStateChanged);
@@ -71,8 +69,17 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             QByteArray bytes = QByteArray();
             QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
             stream << PacketType::ConfirmationTicket;
-            stream << carTicket;
+
+            QFile* imageFile = new QFile(":/images/images/car_ticket.jpg");
+            imageFile->open(QIODevice::ReadOnly);
+            QByteArray ib = imageFile->readAll();
+            imageFile->close();
+            delete imageFile;
+
+            stream << ib.size();
             server->Send(socket, bytes);
+
+            server->Send(socket, ib);
 
             UpdateCarTable();
         }
@@ -90,8 +97,17 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             QByteArray bytes = QByteArray();
             QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
             stream << PacketType::ConfirmationTicket;
-            stream << planeTicket;
+
+            QFile* imageFile = new QFile(":/images/images/plane_ticket.jpg");
+            imageFile->open(QIODevice::ReadOnly);
+            QByteArray ib = imageFile->readAll();
+            imageFile->close();
+            delete imageFile;
+
+            stream << ib.size();
             server->Send(socket, bytes);
+
+            server->Send(socket, ib);
         }
         break;
 

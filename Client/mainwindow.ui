@@ -228,6 +228,9 @@
       <property name="text">
        <string/>
       </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="planeBookingPage">
@@ -298,6 +301,9 @@
       <property name="text">
        <string/>
       </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QComboBox" name="planeChoices">
       <property name="geometry">
@@ -315,6 +321,11 @@
       </item>
       <item>
        <property name="text">
+        <string>Any Boeing Plane</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
         <string>Ugly plane</string>
        </property>
       </item>
@@ -326,17 +337,17 @@
      </widget>
     </widget>
     <widget class="QWidget" name="confirmationPage">
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="ConfirmationTicket">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>10</y>
-        <width>301</width>
-        <height>51</height>
+        <x>0</x>
+        <y>-20</y>
+        <width>411</width>
+        <height>691</height>
        </rect>
       </property>
       <property name="text">
-       <string>CONFIRMATION PAGE / TICKET PAGE</string>
+       <string/>
       </property>
      </widget>
     </widget>

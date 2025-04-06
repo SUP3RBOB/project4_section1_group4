@@ -51,5 +51,10 @@ private:
     QGeoCoordinate coordinates;
 
     UserAccount account;
+
+    // Image stuff
+    bool waitForImage = false;
+    QByteArray imageBytes;
+    qsizetype totalImageBytes;
 };
 #endif // MAINWINDOW_H
