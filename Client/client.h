@@ -13,7 +13,7 @@ public:
 
     void Start(QHostAddress ip, qint16 port);
 
-    qint64 Send(char* data);
+    qint64 Send(const QByteArray& data);
 
     void Stop();
 

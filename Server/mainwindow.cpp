@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     server = new Server();
     connect(server, &Server::OnStateChanged, this, &MainWindow::ServerStateChanged);
+    connect(server, &Server::OnReceivedBytes, this, &MainWindow::BytesReceived);
 
     server->Start(QHostAddress::Any, 7770);
 
@@ -70,7 +71,7 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
             stream << PacketType::ConfirmationTicket;
             stream << carTicket;
-            server->Send(socket, bytes.data());
+            server->Send(socket, bytes);
         }
         break;
 
@@ -87,7 +88,7 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
             stream << PacketType::ConfirmationTicket;
             stream << planeTicket;
-            server->Send(socket, bytes.data());
+            server->Send(socket, bytes);
         }
         break;
 
@@ -101,7 +102,7 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
             stream << PacketType::AccountConfirmed;
             stream << exists;
-            server->Send(socket, bytes.data());
+            server->Send(socket, bytes);
         }
 
         default: // Do literally nothing
@@ -129,11 +130,11 @@ void MainWindow::ServerStateChanged(ServerState state)
 void MainWindow::ClientJoined()
 {
     clientCount++;
-    ui->ClientCountLabel->setText(QString::number(clientCount));
+    ui->ClientCountLabel->setText("Clients Connected: " + QString::number(clientCount));
 }
 
 void MainWindow::ClientLeft()
 {
     clientCount--;
-    ui->ClientCountLabel->setText(QString::number(clientCount));
+    ui->ClientCountLabel->setText("Clients Connected: " + QString::number(clientCount));
 }

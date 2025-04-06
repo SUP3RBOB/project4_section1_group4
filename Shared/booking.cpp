@@ -16,7 +16,9 @@ QString Booking::GetDestination()
     return destination;
 }
 
-QGeoCoordinate Booking::GetCoordinates()
+QString Booking::GetCoordinates()
 {
-    return coordinates;
+    QString coords;
+    QTextStream(&coords) << "(" << coordinates.latitude() << ", " << coordinates.longitude() << ")";
+    return coords;
 }

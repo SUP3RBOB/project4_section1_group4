@@ -16,7 +16,7 @@ public:
 
     QDateTime GetDate();
     QString GetDestination();
-    QGeoCoordinate GetCoordinates();
+    QString GetCoordinates();
 };
 
 #endif // BOOKING_H

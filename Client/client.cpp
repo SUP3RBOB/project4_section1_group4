@@ -12,8 +12,7 @@ void Client::Start(QHostAddress ip, qint16 port){
     clientSocket->connectToHost(ip, port);
 }
 
-qint64 Client::Send(char* data){
-
+qint64 Client::Send(const QByteArray& data){
     return clientSocket->write(data);
 }
 
