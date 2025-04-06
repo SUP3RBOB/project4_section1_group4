@@ -127,7 +127,7 @@ void MainWindow::UpdateCarTable()
         item->setText(1, query.value(1).toString());
         item->setText(2, query.value(2).toString());
         item->setText(3, query.value(3).toString());
-        item->setText(4, query.value(4).toString() == "1" ? "true" : "false");
+        item->setText(4, query.value(4).toString() == "1" ? "Yes" : "No");
         ui->CarBookingTable->addTopLevelItem(item);
     }
 }
