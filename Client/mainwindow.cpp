@@ -128,8 +128,11 @@ void MainWindow::CarLocationSet(QString location, double latitude, double longit
 {
     qDebug() << location;
     qDebug() << "(" << latitude << ", " << longitude << ")";
-    ui->LocationLabelCar->setText(location);
+    if (location == "") {
+        location = "Middle of nowhere";
+    }
     address = location;
+    ui->LocationLabelCar->setText(address);
     coordinates = QGeoCoordinate(latitude, longitude);
 }
 
@@ -137,8 +140,11 @@ void MainWindow::PlaneLocationSet(QString location, double latitude, double long
 {
     qDebug() << location;
     qDebug() << "(" << latitude << ", " << longitude << ")";
-    ui->locationLabelPlane->setText(location);
+    if (location == "") {
+        location = "Middle of nowhere";
+    }
     address = location;
+    ui->locationLabelPlane->setText(address);
     coordinates = QGeoCoordinate(latitude, longitude);
 }
 
@@ -151,6 +157,7 @@ void MainWindow::DataReceived(QByteArray bytes)
         if (imageBytes.size() >= totalImageBytes) {
             QPixmap ticket;
             ticket.loadFromData(imageBytes);
+            ticket = ticket.scaled(360, 640);
             ui->ConfirmationTicket->setPixmap(ticket);
             waitForImage = false;
         }

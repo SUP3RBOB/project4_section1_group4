@@ -108,6 +108,8 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             server->Send(socket, bytes);
 
             server->Send(socket, ib);
+
+            UpdatePlaneTable();
         }
         break;
 
@@ -150,7 +152,7 @@ void MainWindow::UpdateCarTable()
 
 void MainWindow::UpdatePlaneTable()
 {
-    ui->CarBookingTable->clear();
+    ui->PlaneBookingTable->clear();
 
     QSqlQuery query;
     query.prepare("select user_email, destination_address, coordinates, booking_date, model from PlaneBooking order by booking_date desc;");
@@ -163,7 +165,7 @@ void MainWindow::UpdatePlaneTable()
         item->setText(2, query.value(2).toString());
         item->setText(3, query.value(3).toString());
         item->setText(4, query.value(4).toString());
-        ui->CarBookingTable->addTopLevelItem(item);
+        ui->PlaneBookingTable->addTopLevelItem(item);
     }
 }
 
