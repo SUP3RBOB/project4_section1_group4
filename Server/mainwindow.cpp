@@ -3,15 +3,13 @@
 #include <QTcpSocket>
 #include <QDataStream>
 #include "databaseutility.h"
+#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    carTicket = QImage(":/images/images/plane_ticket.jpg");
-    planeTicket = QImage(":/images/images/plane_ticket.jpg");
 
     server = new Server();
     connect(server, &Server::OnStateChanged, this, &MainWindow::ServerStateChanged);
@@ -71,8 +69,17 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             QByteArray bytes = QByteArray();
             QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
             stream << PacketType::ConfirmationTicket;
-            stream << carTicket;
+
+            QFile* imageFile = new QFile(":/images/images/car_ticket.jpg");
+            imageFile->open(QIODevice::ReadOnly);
+            QByteArray ib = imageFile->readAll();
+            imageFile->close();
+            delete imageFile;
+
+            stream << ib.size();
             server->Send(socket, bytes);
+
+            server->Send(socket, ib);
 
             UpdateCarTable();
         }
@@ -90,8 +97,19 @@ void MainWindow::HandlePacket(QTcpSocket* socket, QDataStream& stream, PacketTyp
             QByteArray bytes = QByteArray();
             QDataStream stream = QDataStream(&bytes, QIODeviceBase::WriteOnly);
             stream << PacketType::ConfirmationTicket;
-            stream << planeTicket;
+
+            QFile* imageFile = new QFile(":/images/images/plane_ticket.jpg");
+            imageFile->open(QIODevice::ReadOnly);
+            QByteArray ib = imageFile->readAll();
+            imageFile->close();
+            delete imageFile;
+
+            stream << ib.size();
             server->Send(socket, bytes);
+
+            server->Send(socket, ib);
+
+            UpdatePlaneTable();
         }
         break;
 
@@ -134,7 +152,7 @@ void MainWindow::UpdateCarTable()
 
 void MainWindow::UpdatePlaneTable()
 {
-    ui->CarBookingTable->clear();
+    ui->PlaneBookingTable->clear();
 
     QSqlQuery query;
     query.prepare("select user_email, destination_address, coordinates, booking_date, model from PlaneBooking order by booking_date desc;");
@@ -147,7 +165,7 @@ void MainWindow::UpdatePlaneTable()
         item->setText(2, query.value(2).toString());
         item->setText(3, query.value(3).toString());
         item->setText(4, query.value(4).toString());
-        ui->CarBookingTable->addTopLevelItem(item);
+        ui->PlaneBookingTable->addTopLevelItem(item);
     }
 }
 
